@@ -1,6 +1,8 @@
 import requests
 from pyproj import Transformer
 
+from custom_exceptions import AdressNotFoundError
+
 
 def lamber93_to_gps(x: int, y: int) -> tuple:
     """Convert Lambert 93 coordinates to GPS coordinates (longitude, latitude)"""
@@ -39,7 +41,7 @@ def adress_to_gps(adress: str) -> tuple:
         return lat, long
 
     except requests.exceptions.HTTPError as err:
-        raise requests.exceptions.HTTPError(err)
+        raise AdressNotFoundError("No data found for this adress: " + str(err))
 
     except IndexError as err:
-        raise IndexError(err)
+        raise AdressNotFoundError("No data found for this adress: " + str(err))

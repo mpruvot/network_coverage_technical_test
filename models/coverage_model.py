@@ -9,3 +9,4 @@ class NetworkCoverage(BaseModel):
     Orange: Optional[Dict] = Field(None, description="Orange network coverage")
     Bouygues: Optional[Dict] = Field(None, description="Bouygues network coverage")
     Sfr: Optional[Dict] = Field(None, description="SFR network coverage")
+    Free: Optional[Dict] = Field(None, description="Free network coverage")
