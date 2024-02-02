@@ -22,7 +22,17 @@ def gps_to_lamber93(lat: float, long: float) -> tuple:
 
 
 def adress_to_gps(adress: str) -> tuple:
-    """Convert adress to GPS coordinates (longitude, latitude)"""
+    """Converts an address to GPS coordinates.
+
+    Args:
+        adress (str): The address to convert.
+
+    Returns:
+        tuple: A tuple containing the latitude and longitude coordinates.
+
+    Raises:
+        AdressNotFoundError: If no data is found for the given address.
+    """
     API_URL = "https://api-adresse.data.gouv.fr/search/"
 
     try:

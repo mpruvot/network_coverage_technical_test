@@ -3,6 +3,8 @@ import sys
 from math import isclose
 from pathlib import Path
 
+from custom_exceptions import DataNotFoundError
+
 sys.path.append(str(Path(__file__).parent.parent))
 
 from models.coverage_model import NetworkCoverage
@@ -16,6 +18,13 @@ class DataRetrieverService:
 
     def __init__(self) -> None:
         pass
+
+    def _validate_data(self, network_object: NetworkCoverage) -> bool:
+        network_data = network_object.model_dump()
+        for value in network_data.values():
+            if value:
+                return True
+        return False
 
     def _retrieve_data_from_coordinates(self, lat: float, long: float) -> list:
         """
@@ -42,9 +51,7 @@ class DataRetrieverService:
                 try:
                     x = float(row[1])
                     y = float(row[2])
-                    if isclose(lat, x, abs_tol=0.001) and isclose(
-                        long, y, abs_tol=0.001
-                    ):
+                    if isclose(lat, x, abs_tol=0.01) and isclose(long, y, abs_tol=0.01):
                         matching_rows.append(row)
                 except ValueError:
                     continue
@@ -96,6 +103,10 @@ class DataRetrieverService:
             *adress_coordinates
         )
         network_coverage = self._format_rows_to_network_coverage(data_from_coordinates)
+
+        if not self._validate_data(network_coverage):
+            raise DataNotFoundError("No valid data found for this adress.")
+
         return network_coverage
 
 
