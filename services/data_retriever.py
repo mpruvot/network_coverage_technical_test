@@ -19,7 +19,7 @@ class DataRetrieverService:
 
     def _retrieve_data_from_coordinates(self, lat: float, long: float) -> list:
         """
-        Retrieve data from coordinates.
+        Retrieve matching rows from the data based on the given coordinates.
 
         Args:
             lat (float): The latitude coordinate.
@@ -27,6 +27,9 @@ class DataRetrieverService:
 
         Returns:
             list: A list of matching rows from the data.
+
+        Raises:
+            ValueError: If the conversion of coordinates fails for a row, it is skipped.
 
         """
         matching_rows = []
@@ -80,10 +83,10 @@ class DataRetrieverService:
 
     def retrieve_data_from_adress(self, adress: str) -> NetworkCoverage:
         """
-        Retrieves network coverage data based on the given address.
+        Retrieves a NetworkCoverage object for the given address.
 
         Args:
-            adress (str): The address to retrieve data for.
+            adress (str): The address to retrieve data from.
 
         Returns:
             NetworkCoverage: The network coverage data for the given address.

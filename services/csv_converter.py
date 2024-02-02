@@ -7,7 +7,19 @@ from services.localisation_converters import lamber93_to_gps
 def csv_converter(
     source: str = "original_csv.csv", dest: str = "converted_csv.csv"
 ) -> None:
-    """Given the Orginal csv with lamber93 coordinates, this function create a new file with Gps coordinates instead"""
+    """
+    Convert a CSV file with Lambert93 coordinates to a new file with GPS coordinates.
+
+    Args:
+        source (str): The path to the original CSV file. Default is "original_csv.csv".
+        dest (str): The path to the converted CSV file. Default is "converted_csv.csv".
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If the conversion of coordinates fails for a row, it is skipped.
+    """
     with open(source, "r", newline="") as csvfile:
         reader = csv.reader(csvfile, delimiter=";")
         with open(dest, "w", newline="") as newfile:
