@@ -108,6 +108,3 @@ class DataRetrieverService:
             raise DataNotFoundError("No valid data found for this adress.")
 
         return network_coverage
-
-
-service = DataRetrieverService()

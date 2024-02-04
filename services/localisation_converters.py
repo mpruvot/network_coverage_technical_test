@@ -1,14 +1,19 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+
 import requests
 from pyproj import Transformer
 
 from custom_exceptions import AdressNotFoundError
 
 
-def lamber93_to_gps(x: int, y: int) -> tuple:
+def lamber93_to_gps(y: int, x: int) -> tuple:
     """Convert Lambert 93 coordinates to GPS coordinates (longitude, latitude)"""
 
     transformer = Transformer.from_crs("EPSG:2154", "EPSG:4326")
-    lat, long = transformer.transform(x, y)
+    lat, long = transformer.transform(y, x)
 
     return lat, long
 
@@ -46,6 +51,7 @@ def adress_to_gps(adress: str) -> tuple:
         )
         response.raise_for_status()
         data = response.json()
+        # The api returns Long/Lat -> y/x
         long = data["features"][0]["geometry"]["coordinates"][0]
         lat = data["features"][0]["geometry"]["coordinates"][1]
         return lat, long
@@ -55,3 +61,6 @@ def adress_to_gps(adress: str) -> tuple:
 
     except IndexError as err:
         raise AdressNotFoundError("No data found for this adress: " + str(err))
+
+
+print(adress_to_gps("17, rue du delta"))
