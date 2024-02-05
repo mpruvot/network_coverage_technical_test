@@ -11,6 +11,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from services.localisation_converters import (
     adress_to_gps,
+    gps_to_adress,
     gps_to_lamber93,
     lamber93_to_gps,
 )
@@ -53,3 +54,22 @@ def test_adress_to_gps_not_found(mock_get):
 
     with pytest.raises(AdressNotFoundError):
         adress_to_gps("xxxxx")
+
+
+@patch("requests.get")
+def test_gps_to_adress(mock_get):
+    mock_get.return_value.status_code = 200
+    mock_get.return_value.json.return_value = {
+        "features": [
+            {
+                "properties": {
+                    "label": "8 Boulevard du Port 80000 Amiens",
+                    "city": "Amiens",
+                }
+            }
+        ]
+    }
+    lon = "2.290084"
+    lat = "49.897442"
+    expected_result = {"adress": "8 Boulevard du Port 80000 Amiens", "city": "Amiens"}
+    assert gps_to_adress(lon, lat) == expected_result
