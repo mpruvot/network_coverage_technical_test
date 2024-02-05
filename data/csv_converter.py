@@ -1,5 +1,9 @@
 import csv
+import pathlib
+import sys
 from time import time
+
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 
 import typer
 
@@ -14,8 +18,8 @@ def convert(source: str, dest: str) -> None:
     Convert a CSV file with Lambert93 coordinates to a new file with GPS coordinates.
 
     Args:
-        source (str): The path to the original CSV file. Default is "original_csv.csv".
-        dest (str): The path to the converted CSV file. Default is "converted_csv.csv".
+        source (str): The path to the original CSV file.
+        dest (str): The path to the converted CSV file.
 
     Returns:
         None
