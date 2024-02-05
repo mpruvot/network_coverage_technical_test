@@ -5,9 +5,9 @@ It can also do revese search by searching for gps data and retrieve an adress fr
 
 - This project also contain csv_converter CLI which  Convert a CSV file with Lambert93 coordinates to a new file with GPS coordinates.    
 
-Usage :                                                      
-  - ```cd data```
-  - ```csv_converter.py SOURCE DEST   ```
+ Usage :                                                      
+    - ```cd data```
+    - ```csv_converter.py SOURCE DEST   ```
 
 ## Installation
 ### without Docker
