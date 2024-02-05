@@ -51,13 +51,13 @@ def test_get_network_coverage_data_not_found_error():
 @patch("api.main.gps_to_adress")
 def test_get_adress_from_gps(mock_data):
     mock_data.return_value = {
-        "adress": "1 Rue de la Libération, 29000 Quimper, France",
-        "city": "Quimper",
+        "adress": "Ouessant",
+        "city": "Ouessant",
     }
-    response = client.get("/adress/?lon=-4.0993&lat=48.3866")
+    response = client.get("/adresses/?lon=-5.0888561&lat=48.4565745")
     assert response.status_code == 200
     assert response.json() == {
-        "adress": "1 Rue de la Libération, 29000 Quimper, France",
-        "city": "Quimper",
+        "adress": "Ouessant",
+        "city": "Ouessant",
     }
     assert mock_data.call_count == 1
