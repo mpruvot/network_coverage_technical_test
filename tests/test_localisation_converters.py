@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 import pytest
 import requests
+from pytest import approx
 
 from custom_exceptions import AdressNotFoundError
 
@@ -21,7 +22,7 @@ def test_lamber93_to_gps():
     x = 600000
     y = 200000
     expected_result = (-4.6047175834036524, 2.366062698352502)
-    assert lamber93_to_gps(x, y) == expected_result
+    assert lamber93_to_gps(x, y) == approx(expected_result, rel=1e-9)
 
 
 def test_gps_to_lamber93():
