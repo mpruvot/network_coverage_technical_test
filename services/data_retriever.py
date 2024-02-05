@@ -42,7 +42,7 @@ class DataRetrieverService:
 
         """
         matching_rows = []
-        with open("converted_csv.csv", newline="") as f:
+        with open("data/converted_csv.csv", newline="") as f:
             reader = csv.reader(f, delimiter=";")
 
             next(reader)
