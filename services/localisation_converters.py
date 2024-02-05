@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -63,4 +64,32 @@ def adress_to_gps(adress: str) -> tuple:
         raise AdressNotFoundError("No data found for this adress: " + str(err))
 
 
-print(adress_to_gps("17, rue du delta"))
+def gps_to_adress(lat: float, long: float) -> dict:
+    """
+    Converts GPS coordinates to an address using the API provided by https://api-adresse.data.gouv.fr/reverse/.
+
+    Args:
+        lat (float): The latitude coordinate.
+        long (float): The longitude coordinate.
+
+    Returns:
+        dict: The address and the city corresponding to the given GPS coordinates.
+
+    Raises:
+        AdressNotFoundError: If no data is found for the given address or if an HTTP error occurs during the API request.
+    """
+    API_URL = "https://api-adresse.data.gouv.fr/reverse/"
+    try:
+        response = requests.get(API_URL, params={"lon": long, "lat": lat})
+        response.raise_for_status()
+        data = response.json()
+        adress = data["features"][0]["properties"].get("label")
+        city = data["features"][0]["properties"].get("city")
+        return {
+            "adress": adress,
+            "city": city,
+        }
+    except requests.exceptions.HTTPError as err:
+        raise AdressNotFoundError("No data found for this address: " + str(err))
+    except IndexError as err:
+        raise AdressNotFoundError("No data found for this address: " + str(err))
