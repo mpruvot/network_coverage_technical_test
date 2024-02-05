@@ -24,3 +24,9 @@ Usage :
 
 
 ### Swagger 
+
+<img width="1382" alt="Screenshot 2024-02-05 at 07 57 11" src="https://github.com/mpruvot/network_coverage_technical_test/assets/132161864/ee4d558b-45b2-4ccb-8b47-22831290cac0">
+
+<img width="1378" alt="Screenshot 2024-02-05 at 07 57 25" src="https://github.com/mpruvot/network_coverage_technical_test/assets/132161864/d0974875-d4da-4f67-9c17-2ca83254de7a">
+
+
